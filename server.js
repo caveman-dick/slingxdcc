@@ -68,7 +68,7 @@ nodefs.mkdir(appHome+"config",0775,true,function(){
          * Configuration
          */
 
-            // all environments
+        // all environments
         app.set('port', nconf.get('webserver:port'));
         app.set('views', __dirname + '/views');
         app.set('view engine', 'jade');
@@ -98,46 +98,46 @@ nodefs.mkdir(appHome+"config",0775,true,function(){
 
         // JSON API
 
-        app.get('/api/packet/', api.getNumPackets);
+        app.get('api/packet/', api.getNumPackets);
 
-        app.get('/api/packet/get/:id', api.packet);
-        app.get('/api/packet/search/:string/', api.packetSearch);
-        app.get('/api/packet/search/:string/:page', api.packetSearchPaged);
-        app.get('/api/packet/list/', api.packetList);
-        app.get('/api/packet/list/:page', api.packetListPaged);
+        app.get('api/packet/get/:id', api.packet);
+        app.get('api/packet/search/:string/', api.packetSearch);
+        app.get('api/packet/search/:string/:page', api.packetSearchPaged);
+        app.get('api/packet/list/', api.packetList);
+        app.get('api/packet/list/:page', api.packetListPaged);
 
-        app.get('/api/packet/sorting/', api.getSorting);
-        app.get('/api/packet/filter/', api.getFilter);
-        app.get('/api/packet/pagelimit/', api.getPageLimit);
+        app.get('api/packet/sorting/', api.getSorting);
+        app.get('api/packet/filter/', api.getFilter);
+        app.get('api/packet/pagelimit/', api.getPageLimit);
 
-        app.get('/api/server/', api.getServer);
+        app.get('api/server/', api.getServer);
 
-        app.get('/api/db/compacting/', api.getNextCompacting);
-        app.get('/api/db/compactingfilter/', api.getCompactingFilter);
-        app.get('/api/downloads/', api.getDownloads);
-        app.get('/api/downloads/notifications/', api.getDlNotifications);
-        app.get('/api/downloads/notifications/count/', api.getDlNotificationCount);
+        app.get('api/db/compacting/', api.getNextCompacting);
+        app.get('api/db/compactingfilter/', api.getCompactingFilter);
+        app.get('api/downloads/', api.getDownloads);
+        app.get('api/downloads/notifications/', api.getDlNotifications);
+        app.get('api/downloads/notifications/count/', api.getDlNotificationCount);
 
-        app.put('/api/packet/sorting/', api.setSorting);
-        app.put('/api/packet/filter/', api.setFilter);
-        app.put('/api/packet/pagelimit/', api.setPageLimit);
-        app.put('/api/db/compacting/', api.compactDb);
-        app.put('/api/db/compactingfilter/', api.setCompactingFilter);
-        app.put('/api/channel/', api.channels);
-        app.put('/api/downloads/upqueue/', api.upQueueDownload);
-        app.put('/api/downloads/downqueue/', api.downQueueDownload);
-        app.put('/api/downloads/cancel', api.cancelDownload);
+        app.put('api/packet/sorting/', api.setSorting);
+        app.put('api/packet/filter/', api.setFilter);
+        app.put('api/packet/pagelimit/', api.setPageLimit);
+        app.put('api/db/compacting/', api.compactDb);
+        app.put('api/db/compactingfilter/', api.setCompactingFilter);
+        app.put('api/channel/', api.channels);
+        app.put('api/downloads/upqueue/', api.upQueueDownload);
+        app.put('api/downloads/downqueue/', api.downQueueDownload);
+        app.put('api/downloads/cancel', api.cancelDownload);
 
 
 
-        app.post('/api/server/', api.addServer);
-        app.post('/api/downloads/', api.startDownload);
-        app.post('/api/db/compacting/', api.startCompactCronjob);
+        app.post('api/server/', api.addServer);
+        app.post('api/downloads/', api.startDownload);
+        app.post('api/db/compacting/', api.startCompactCronjob);
 
-        app.delete('/api/server/:key', api.removeServer);
-        app.delete('/api/downloads/notifications/', api.clearDlNotifications);
-        app.delete('/api/downloads/notifications/count/', api.clearDlNotificationCount);
-        app.delete('/api/db/compacting', api.stopCompactCronjob);
+        app.delete('api/server/:key', api.removeServer);
+        app.delete('api/downloads/notifications/', api.clearDlNotifications);
+        app.delete('api/downloads/notifications/count/', api.clearDlNotificationCount);
+        app.delete('api/db/compacting', api.stopCompactCronjob);
 
         app.get('*', routes.index);
 
@@ -161,7 +161,7 @@ nodefs.mkdir(appHome+"config",0775,true,function(){
                     server = http.createServer(app);
                 }
                 // Hook Socket.io into Express
-                io = io.listen(server);
+                io = io.listen(server, { resource: '/slingxdcc/socket.io' });
                 // Socket.io Communication
                 io.sockets.on('connection', require('./routes/socket'));
 

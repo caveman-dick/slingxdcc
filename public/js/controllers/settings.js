@@ -45,7 +45,7 @@ function SettingsCtrl($scope, $http, socket){
     };
 
     function getServerData(){
-        $http.get('/api/server/').success(function (data, status, headers, config){
+        $http.get('api/server/').success(function (data, status, headers, config){
             for (var i in data){
                 data[i].key = i;
             }
@@ -54,18 +54,18 @@ function SettingsCtrl($scope, $http, socket){
     }
 
     function getDbData(){
-        $http.get('/api/db/compacting/').success(function (data, status, headers, config){
+        $http.get('api/db/compacting/').success(function (data, status, headers, config){
             angular.extend($scope.compacting, data);
             if(data.autoCompacting){
                 $('.dbsettings .compactingsettings input').prop('disabled', true);
             }
         });
-        $http.get('/api/db/compactingfilter/').success(function (data, status, headers, config){
+        $http.get('api/db/compactingfilter/').success(function (data, status, headers, config){
             $scope.filter.compactingfilter = data.filter;
             $scope.filter.tmpfilter = data.filter ? data.filter : 24;
             $scope.filter.autoDeleting = (data.filter ? true : false);
         });
-        $http.get('/api/packet/').success(function (data, status, headers, config) {
+        $http.get('api/packet/').success(function (data, status, headers, config) {
             angular.extend($scope.packetCount, data);
             $scope.redPercentage = $scope.packetCount.redPackets / ($scope.packetCount.absPackets + $scope.packetCount.redPackets) * 100;
         });

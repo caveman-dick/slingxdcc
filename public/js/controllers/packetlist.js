@@ -17,7 +17,7 @@ function PacketListCtrl($scope, $rootScope, $http){
     var dlList = [];
 
     function getDownloads(){
-        $http.get('/api/downloads/').success(function (data, status, headers, config){
+        $http.get('api/downloads/').success(function (data, status, headers, config){
             dlList = []
             $scope.dlQueue = data.dlQueue;
             jQuery.each($scope.dlQueue,function(srvkey,srvcol){
@@ -68,14 +68,14 @@ function PacketListCtrl($scope, $rootScope, $http){
                 value.sortOrder = 'asc';
             }
         }
-        $http.put('/api/packet/sorting/', value).success(function (){
+        $http.put('api/packet/sorting/', value).success(function (){
             $scope.sorting = value;
             $scope.setPage(1);
         });
     };
 
     $scope.startDownload = function(packet){
-        $http.post('/api/downloads/', {packObj:packet}).success(function (data, status, headers, config){
+        $http.post('api/downloads/', {packObj:packet}).success(function (data, status, headers, config){
             if(data.success){
                 dlList.push(packet);
             }
@@ -83,7 +83,7 @@ function PacketListCtrl($scope, $rootScope, $http){
     }
 
     $scope.cancelDownload = function(packet){
-        $http.put('/api/downloads/cancel/', {packObj:packet}).success(function (data, status, headers, config){
+        $http.put('api/downloads/cancel/', {packObj:packet}).success(function (data, status, headers, config){
             if(data.success){
                 dlList = removeArrayItem(dlList,packet);
             }
@@ -95,9 +95,9 @@ function PacketListCtrl($scope, $rootScope, $http){
         loadDone = false;
         var url;
         if ($scope.searchString.length > 0){
-            url = '/api/packet/search/' + $scope.searchString + '/' + $scope.currentPage + '/';
+            url = 'api/packet/search/' + $scope.searchString + '/' + $scope.currentPage + '/';
         }else{
-            url = '/api/packet/list/' + $scope.currentPage + '/'
+            url = 'api/packet/list/' + $scope.currentPage + '/'
         }
         $http({method: 'GET', url: url}).success(function (data, status, headers, config){
             $scope.numPages = data.numPages;
@@ -109,7 +109,7 @@ function PacketListCtrl($scope, $rootScope, $http){
     }
 
     function refreshSortScope(){
-        $http({method: 'GET', url: '/api/packet/sorting/'}).success(function (data, status, headers, config){
+        $http({method: 'GET', url: 'api/packet/sorting/'}).success(function (data, status, headers, config){
             $scope.sorting = data;
             $scope.sorted = function (col){
                 if ($scope.sorting.sortBy == col){

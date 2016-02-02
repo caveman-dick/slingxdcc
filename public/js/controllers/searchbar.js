@@ -16,7 +16,7 @@ function SearchBarCtrl($scope, $rootScope, $http, $location, $timeout){
     var rescuedSearch = "";
 
 
-    $http({method: 'GET', url: '/api/packet/'}).success(function (data, status, headers, config){
+    $http({method: 'GET', url: 'api/packet/'}).success(function (data, status, headers, config){
         $scope.packetCount = data;
     });
 

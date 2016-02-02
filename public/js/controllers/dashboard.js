@@ -57,7 +57,7 @@ function DashboardCtrl($scope, $http, $timeout) {
 
     $scope.getData = function () {
 
-        $http.get('/api/server/').success(function (data, status, headers, config) {
+        $http.get('api/server/').success(function (data, status, headers, config) {
             $scope.onServers = 0;
             $scope.numServers = 0;
             for (var i in data) {
@@ -75,18 +75,18 @@ function DashboardCtrl($scope, $http, $timeout) {
 
         });
 
-        $http.get('/api/packet/').success(function (data, status, headers, config) {
+        $http.get('api/packet/').success(function (data, status, headers, config) {
             angular.extend($scope.packetCount, data);
             $scope.chartPacketData[0].value = $scope.packetCount.absPackets
             $scope.chartPacketData[1].value = $scope.packetCount.redPackets;
 
         });
 
-        $http.get('/api/db/compacting/').success(function (data, status, headers, config) {
+        $http.get('api/db/compacting/').success(function (data, status, headers, config) {
             angular.extend($scope.compacting, data);
         });
 
-        $http.get('/api/downloads/notifications/').success(function (data, status, headers, config){
+        $http.get('api/downloads/notifications/').success(function (data, status, headers, config){
             $scope.notifications = data;
         });
 
@@ -171,7 +171,7 @@ function NotificationCtrl($scope, $http, socket, $rootScope, $location){
     });
 
     $scope.clearNotifications = function(){
-        $http.delete('/api/downloads/notifications/').success(function (data, status, headers, config){
+        $http.delete('api/downloads/notifications/').success(function (data, status, headers, config){
             $scope.notifications=[];
             $rootScope.$emit('notificationsClear');
         })

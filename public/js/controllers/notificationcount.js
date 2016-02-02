@@ -44,13 +44,13 @@ function NotificationCountCtrl($scope, $http, socket, $rootScope){
     });
 
     $scope.getData = function (){
-        $http.get('/api/downloads/notifications/count/').success(function (data, status, headers, config){
+        $http.get('api/downloads/notifications/count/').success(function (data, status, headers, config){
             $scope.notificationCount = data;
         })
     };
 
     $scope.clearNotifications = function(){
-        $http.delete('/api/downloads/notifications/count/').success(function (data, status, headers, config){
+        $http.delete('api/downloads/notifications/count/').success(function (data, status, headers, config){
             $scope.notificationCount = {
                 dlstart: 0,
                 dlsuccess: 0,

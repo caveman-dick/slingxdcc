@@ -15,7 +15,9 @@
 // In this case it is a simple value service.
 angular.module('myApp.services', []).
     factory('socket', function ($rootScope) {
-        var socket = io.connect();
+        var address = window.location.protocol + '//' + window.location.host;
+        var details = { path: '/' + (window.location.pathname.split('/').slice(0, -1).join('/') + '/socket.io').substring(1) };
+        var socket = io.connect(address, details);
         return {
             on: function (eventName, callback) {
                 socket.on(eventName, function () {

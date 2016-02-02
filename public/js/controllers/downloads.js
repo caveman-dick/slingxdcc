@@ -60,14 +60,14 @@ function DownloadsCtrl($scope, $http, socket){
     });
 
     $scope.getData = function(){
-        $http.get('/api/downloads/').success(function (data, status, headers, config){
+        $http.get('api/downloads/').success(function (data, status, headers, config){
             $scope.dlList = queuesToArray(data.dlQueue);
             $scope.speedsum = speedsum();
         });
     };
 
     $scope.cancelDownload = function(packet){
-        $http.put('/api/downloads/cancel/', {packObj:packet}).success(function (data, status, headers, config){
+        $http.put('api/downloads/cancel/', {packObj:packet}).success(function (data, status, headers, config){
             if(data.success){
                 removeArrayItem($scope.dlList, packet);
                 $scope.speedsum = speedsum();
@@ -86,7 +86,7 @@ function DownloadsCtrl($scope, $http, socket){
 
 
     $scope.upqueue = function(packet){
-        $http.put('/api/downloads/upqueue/', {packObj:packet}).success(function (data, status, headers, config){
+        $http.put('api/downloads/upqueue/', {packObj:packet}).success(function (data, status, headers, config){
             if(data.success){
                 $scope.getData();
             }
@@ -94,7 +94,7 @@ function DownloadsCtrl($scope, $http, socket){
     };
 
     $scope.downqueue = function(packet){
-        $http.put('/api/downloads/downqueue/', {packObj:packet}).success(function (data, status, headers, config){
+        $http.put('api/downloads/downqueue/', {packObj:packet}).success(function (data, status, headers, config){
             if(data.success){
                 $scope.getData();
             }

@@ -23,14 +23,14 @@ function DbSettingsCtrl($scope, $http, socket){
 
 
     $scope.compactDb = function(){
-        $http.put('/api/db/compacting/');
+        $http.put('api/db/compacting/');
         $scope.redPercentage = 0;
         $scope.packetCount.redPackets = 0;
     };
 
     $scope.setFilter = function(){
         var hours = isNaN(parseInt($scope.filter.tmpfilter)) ? 24 : parseInt($scope.filter.tmpfilter);
-        $http.put('/api/db/compactingfilter/',{filter: hours}).success(function (data, status, headers, config){
+        $http.put('api/db/compactingfilter/',{filter: hours}).success(function (data, status, headers, config){
             $scope.filter.compactingfilter = hours;
             $scope.filter.autoDeleting = true;
         });
@@ -38,7 +38,7 @@ function DbSettingsCtrl($scope, $http, socket){
 
     $scope.toggleAutoDeleting = function(){
         if($scope.filter.autoDeleting){
-            $http.put('/api/db/compactingfilter/',{filter: false});
+            $http.put('api/db/compactingfilter/',{filter: false});
         }else{
             $scope.setFilter();
         }
@@ -46,7 +46,7 @@ function DbSettingsCtrl($scope, $http, socket){
 
     $scope.toggleCompacting = function(){
         if($scope.compacting.autoCompacting){
-            $http.delete('/api/db/compacting/').success(function (data, status, headers, config){
+            $http.delete('api/db/compacting/').success(function (data, status, headers, config){
                 angular.extend($scope.compacting, data);
                 $('.dbsettings .compactingsettings input').prop('disabled', false);
             });
@@ -63,7 +63,7 @@ function DbSettingsCtrl($scope, $http, socket){
             if(percentage > 500)
                 percentage = 500;
 
-            $http.post('/api/db/compacting/',{minutes: interval, percentage: percentage}).success(function (data, status, headers, config){
+            $http.post('api/db/compacting/',{minutes: interval, percentage: percentage}).success(function (data, status, headers, config){
                 angular.extend($scope.compacting, data);
                 $('.dbsettings .compactingsettings input').prop('disabled', true);
             });

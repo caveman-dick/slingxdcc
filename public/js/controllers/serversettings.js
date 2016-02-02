@@ -30,7 +30,7 @@ function ServerSettingsCtrl($scope, $http, socket){
             channels      : $scope.server.channels.length > 0 ? $scope.server.channels.join(' ') : "",
             observchannels: $scope.server.observchannels.length > 0 ? $scope.server.observchannels.join(' ') : ""
         };
-        $http.post('/api/server/', server).success(function (data){
+        $http.post('api/server/', server).success(function (data){
             $scope.server.connected = false;
             angular.copy($scope.server,$scope.servers[server.key]);
             $scope.joinChanStr = "";
@@ -39,14 +39,14 @@ function ServerSettingsCtrl($scope, $http, socket){
     };
 
     $scope.removeServer = function (){
-        $http.delete('/api/server/' + $scope.server.key).success(function (data){
+        $http.delete('api/server/' + $scope.server.key).success(function (data){
             delete $scope.servers[$scope.server.key];
         });
     };
 
     $scope.joinChannels = function (){
         if ($scope.joinChanStr.length > 0){
-            $http.put('/api/channel/', {srvkey: $scope.server.key, channels: $scope.joinChanStr, type: "join"}).success(function (data){
+            $http.put('api/channel/', {srvkey: $scope.server.key, channels: $scope.joinChanStr, type: "join"}).success(function (data){
                 $scope.server.channels = $scope.server.channels.concat($scope.joinChanStr.split(" "));
                 $scope.joinChanStr = "";
             });
@@ -54,7 +54,7 @@ function ServerSettingsCtrl($scope, $http, socket){
     };
 
     $scope.partChannel = function (channel){
-        $http.put('/api/channel/', {srvkey: $scope.server.key, channels: channel, type: "part"}).success(function (data){
+        $http.put('api/channel/', {srvkey: $scope.server.key, channels: channel, type: "part"}).success(function (data){
             $scope.server.channels.splice($scope.server.channels.indexOf(channel), 1);
             if ($scope.isObserved(channel)){
                 $scope.server.observchannels.splice($scope.server.observchannels.indexOf(channel), 1);
@@ -64,11 +64,11 @@ function ServerSettingsCtrl($scope, $http, socket){
 
     $scope.toggleObserv = function (channel){
         if ($scope.isObserved(channel)){
-            $http.put('/api/channel/', {srvkey: $scope.server.key, channels: channel, type: "unobserv"}).success(function (data){
+            $http.put('api/channel/', {srvkey: $scope.server.key, channels: channel, type: "unobserv"}).success(function (data){
                 $scope.server.observchannels.splice($scope.server.observchannels.indexOf(channel), 1);
             });
         }else{
-            $http.put('/api/channel/', {srvkey: $scope.server.key, channels: channel, type: "observ"}).success(function (data){
+            $http.put('api/channel/', {srvkey: $scope.server.key, channels: channel, type: "observ"}).success(function (data){
                 $scope.server.observchannels.push(channel);
             });
         }
